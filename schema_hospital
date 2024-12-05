@@ -1,0 +1,44 @@
+create database hospital; 
+Tables:=> Patients, 
+          admissions, 
+          province_names,
+          doctors
+
+use hospital;
+
+CREATE table Patients(
+patient_id int primary key not null ,
+first_name varchar(20),
+last_name varchar(20),
+gender char(1),
+birth_date date,
+city varchar(30), 
+province_id char(2),
+allergies varchar(80),
+height decimal(3,0),
+weight decimal(4,0)
+);
+
+CREATE table Admissions(
+patient_id	INT,
+admission_date	DATE,
+discharge_date	DATE,
+diagnosis	TEXT,
+attending_doctor_id	INT primary key ,
+foreigh key(patient_id)
+);
+
+CREATE table Doctors(
+doctor_id	INT primary key
+first_name	TEXT
+last_name	TEXT
+specialty	TEXT
+);
+CREATE table Province_names(
+province_id	CHAR(2)
+province_name	TEXT
+
+);
+
+
+
