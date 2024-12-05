@@ -1,0 +1,63 @@
+***************************************        Easy       ***************************************
+=================================================================================================
+1. Show first name, last name, and gender of patients whose gender is 'M'
+SELECT first_name,last_name,gender FROM patients where gender= "M";
+
+2. Show first name and last name of patients who does not have allergies. (null)
+SELECT first_name,last_name FROM patients where allergies is null;
+
+3. Show first name, last name, and the full province name of each patient.
+select pa.first_name,pa.last_name,pr.province_name
+from patients pa
+join province_names pr
+on pa.province_id=pr.province_id
+
+4. Show how many patients have a birth_date with 2010 as the birth year.
+SELECT count(first_name)as total_patients
+FROM patients
+where instr("birth_date",2010)=1 ;
+
+5. Show all the columns from admissions where the patient was admitted and discharged on the same day.
+SELECT *from admissions where admission_date = discharge_datE;
+
+6. Show unique birth years from patients and order them by ascending.
+SELECT year(birth_date) as birth_year from patients
+group by year(birth_date)
+order by year(birth_date) asc ;
+
+************************************              Medium            *******************************
+===================================================================================================
+
+1. Show patient_id and first_name from patients where their first_name start and ends with 's' and is at least 6 characters long.
+SELECT patient_id,first_name from patients
+where first_name like "s%____%s"
+
+2. Show the total amount of male patients and the total amount of female patients in the patients table. Display the two results in the same row.
+SELECT
+    SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS total_male_patients,
+    SUM(CASE WHEN gender = 'F' THEN 1 ELSE 0 END) AS total_female_patients
+FROM patients;
+
+3. Show patient_id, diagnosis from admissions. Find patients admitted multiple times for the same diagnosis.
+SELECT patient_id, diagnosis 
+FROM admissions
+group by diagnosis,patient_id
+having count(diagnosis)>1
+
+4 Show first name, last name and role of every person that is either patient or doctor. The roles are either "Patient" or "Doctor"
+SELECT first_name, last_name, 'Patient' AS role
+FROM patients
+UNION ALL
+SELECT first_name, last_name, 'Doctor' AS role
+FROM doctors
+
+5 Show all of the days of the month (1-31) and how many admission_dates occurred on that day. Sort by the day with most admissions to least admissions.
+SELECT
+  DAY(admission_date) AS day_number,
+  COUNT(*) AS number_of_admissions
+FROM admissions
+
+***************************************       hard      ***************************************
+=================================================================================================
+GROUP BY day_number
+ORDER BY number_of_admissions DESC
