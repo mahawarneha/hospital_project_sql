@@ -95,16 +95,29 @@ GROUP BY day_number
 ORDER BY number_of_admissions DESC
 
 6 For every admission, display the patient's full name, their admission diagnosis, and their doctor's full name who diagnosed their problem.
-SELECT 
-    CONCAT(P.first_name, ' ', P.last_name) AS patient_name,
-    A.diagnosis,
-    CONCAT(D.first_name, ' ', D.last_name) AS doctor_name
-FROM 
-    patients P
-JOIN 
-    admissions A ON A.patient_id = P.patient_id
-JOIN 
-    doctors D ON A.attending_doctor_id = D.doctor_id;
+SELECT CONCAT(P.first_name, ' ', P.last_name) AS patient_name,A.diagnosis, 
+       CONCAT(D.first_name, ' ', D.last_name) AS doctor_name
+FROM patients P
+JOIN admissions A ON A.patient_id = P.patient_id
+JOIN doctors D ON A.attending_doctor_id = D.doctor_id;
+
+7 Show patient_id, first_name, last_name from patients  whose does not have any records in the admissions table. 
+SELECT P.patient_id AS p_pat, P.first_name,P.last_name
+FROM patients P
+LEFT JOIN admissions A ON P.patient_id = A.patient_id
+WHERE A.patient_id IS NULL;
+
+8.display the first name, last name and number of duplicate patients based on their first name and last name.
+SELECT first_name,last_name, COUNT(*) AS number_of_duplicates
+FROM  patients
+GROUP BY first_name, last_name
+HAVING COUNT(*) > 1;
+
+9.Show first_name, last_name, and the total number of admissions attended for each doctor.Every admission has been attended by a doctor.
+SELECT D.first_name,D.last_name,COUNT(*) AS total_admission_attended
+FROM doctors D
+JOIN admissions A ON D.doctor_id = A.attending_doctor_id
+GROUP BY A.attending_doctor_id;
 ***************************************       hard      ***************************************
 =================================================================================================
 
