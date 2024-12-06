@@ -154,3 +154,10 @@ and  MONTH(birth_date) IN (2, 5, 12)
 3. We need a breakdown for the total amount of admissions each doctor has started each year. 
 Show the doctor_id, doctor_full_name, specialty, year, total_admissions for that year.
 
+4.Show the provinces that has more patients identified as 'M' than 'F'.Must only show full province_name
+SELECT g1.province_name
+FROM province_names g1
+LEFT JOIN
+patients g2 ON g1.province_id = g2.province_id
+GROUP BY g1.province_name
+HAVING SUM(gender = 'M') > SUM(gender = 'F')
