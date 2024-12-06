@@ -13,9 +13,9 @@ join province_names pr
 on pa.province_id=pr.province_id
 
 4. Show how many patients have a birth_date with 2010 as the birth year.
-SELECT count(first_name)as total_patients
+SELECT COUNT(*) 
 FROM patients
-where instr("birth_date",2010)=1 ;
+WHERE YEAR(birth_date) = 2010;
 
 5. Show all the columns from admissions where the patient was admitted and discharged on the same day.
 SELECT *from admissions where admission_date = discharge_datE;
