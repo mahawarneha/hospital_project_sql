@@ -25,6 +25,41 @@ SELECT year(birth_date) as birth_year from patients
 group by year(birth_date)
 order by year(birth_date) asc ;
 
+7. Show the patient id and the total number of admissions for patient_id 56.
+SELECT patient_id, COUNT(*) AS total_admissions
+FROM admissions
+WHERE patient_id = 56
+GROUP BY patient_id;
+
+8. Based on the cities that our patients live in, show unique cities that are in province_id 'NS'?
+select distinct city from patients where province_id ="NS";
+
+9.Show the total number of admissions
+select count(*) as total_admission from admissions;
+
+10 Show all columns for patients who have one of the following patient_ids:1,45,534,879,1000
+select * from patients where patient_id in(1,45,534,879,1000);
+
+11 Show the first_name, last_name, and height of the patient with the greatest height.
+select first_name, last_name, height from patients 
+order by height desc
+limit 1;
+
+12 Show first name of patients that start with the letter 'C'
+select first_name from patients where first_name like "c%" ;
+
+13 Show first name and last name concatenated into one column to show their full name.
+select concat(first_name," ",last_name) as full_name from patients;
+
+14 Write a query to find the first_name, last name, and birth date of patients who has height greater than 
+160 and weight greater than 70.
+SELECT     first_name, last_name, birth_date FROM   patients WHERE  height > 160 AND weight > 70;
+
+15 Update the patients table for the allergies column. If the patient's allergies is null then replace it with 'NKA'
+
+
+16 Show first name and last name of patients that weight within the range of 100 to 120 (inclusive)
+select first_name,last_name from patients where weight between 100 and 200 
 ************************************              Medium            *******************************
 ===================================================================================================
 
